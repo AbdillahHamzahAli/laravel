@@ -4,6 +4,193 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Linear — midnight precision instrument */
+    --color-void: #08090a;
+    --color-carbon: #0f1011;
+    --color-obsidian: #161718;
+    --color-graphite: #23252a;
+    --color-smoke: #383b3f;
+    --color-ash: #62666d;
+    --color-fog: #8a8f98;
+    --color-mist: #d0d6e0;
+    --color-bone: #e5e5e6;
+    --color-paper: #ffffff;
+    --color-acid-lime: #e4f222;
+    --color-pulse-green: #27a644;
+    --color-coral-red: #eb5757;
+    --color-signal-teal: #02b8cc;
+    --color-iris-violet: #6366f1;
+    --color-lavender: #8b5cf6;
+
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --shadow-card: rgb(35, 37, 42) 0px 0px 0px 1px inset;
+    --shadow-soft: rgba(0, 0, 0, 0.4) 0px 2px 4px 0px;
+    --shadow-lime-ring: rgba(228, 242, 34, 0.25) 0px 0px 0px 1px inset;
+    --shadow-green-ring: #27a644 0px 0px 0px 1px inset;
+}
+
+@layer base {
+    body {
+        @apply bg-void text-mist font-sans min-h-screen text-base leading-relaxed antialiased;
+        font-feature-settings: 'cv01' on, 'ss03' on, 'zero' on;
+    }
+
+    a {
+        @apply no-underline text-inherit;
+    }
+
+    code.inline {
+        @apply bg-white/[0.06] px-1.5 py-0.5 rounded font-mono text-xs text-bone;
+    }
+}
+
+@layer components {
+    .shell {
+        @apply max-w-[1200px] mx-auto px-6;
+    }
+
+    /* NAV */
+    .nav-bar {
+        @apply sticky top-0 z-50 border-b border-graphite bg-void/90 backdrop-blur-md;
+    }
+    .nav-inner {
+        @apply max-w-[1200px] mx-auto px-6 h-[60px] flex items-center justify-between;
+    }
+    .logo {
+        @apply text-paper text-base font-medium tracking-tight flex items-center gap-2.5;
+    }
+    .logo-mark {
+        @apply w-[22px] h-[22px] bg-acid-lime rounded-md inline-flex items-center justify-center text-void font-semibold text-[13px];
+    }
+    .nav-links {
+        @apply flex items-center gap-1;
+    }
+    .nav-link {
+        @apply text-mist text-[13px] px-3 py-2 rounded-md transition-colors hover:text-paper hover:bg-white/5;
+    }
+    .nav-link.active {
+        @apply text-paper bg-white/5;
+    }
+
+    /* BUTTONS — acid-lime hanya untuk 1 aksi utama per view */
+    .btn-lime {
+        @apply inline-flex items-center bg-acid-lime text-void rounded-md px-4 py-2.5 text-sm font-medium tracking-tight hover:brightness-110 transition;
+    }
+    .btn-ghost {
+        @apply inline-flex items-center gap-2 bg-transparent border border-graphite text-mist rounded-md px-3 py-2 text-[13px] hover:border-smoke hover:text-paper transition-colors;
+    }
+    .btn-pill {
+        @apply bg-white text-void rounded-full px-4 py-2 text-[13px] font-medium ml-2 hover:bg-bone transition-colors;
+    }
+
+    /* TYPO */
+    .mono {
+        @apply font-mono text-xs tracking-tight;
+    }
+    .hero {
+        @apply py-24 pb-12;
+    }
+    .hero-compact {
+        @apply pt-16 pb-8;
+    }
+    .hero-title {
+        @apply text-paper font-medium leading-none tracking-[-0.022em] max-w-[800px] text-[64px] max-md:text-[40px];
+    }
+    .page-title {
+        @apply text-paper font-medium leading-none tracking-[-0.022em] text-5xl mt-4;
+    }
+    .hero-sub {
+        @apply text-fog mt-4 max-w-[560px];
+    }
+    .hero-actions {
+        @apply flex gap-2 mt-6 flex-wrap;
+    }
+
+    /* CARDS — elevasi dari hairline border, bukan shadow */
+    .card {
+        @apply bg-carbon rounded-xl shadow-card p-6;
+    }
+    .card-subtle {
+        @apply bg-white/[0.02] rounded-md shadow-soft p-4 border border-white/[0.04];
+    }
+    .card-active {
+        @apply border-acid-lime/40 shadow-lime-ring;
+    }
+
+    /* BADGES */
+    .badge {
+        @apply inline-flex items-center bg-white/5 text-fog rounded px-1.5 text-xs leading-[22px];
+    }
+    .badge-green {
+        @apply text-[#7dd3a8] bg-pulse-green/10 shadow-green-ring;
+    }
+    .badge-red {
+        @apply text-[#f19494] bg-coral-red/10;
+    }
+    .badge-violet {
+        @apply text-[#b3b5ff] bg-iris-violet/15;
+    }
+    .badge-lime {
+        @apply text-acid-lime bg-acid-lime/[0.08] shadow-lime-ring;
+    }
+
+    /* KEY-VALUE ROWS */
+    .kv {
+        @apply flex justify-between gap-3 py-3 border-b border-graphite text-sm last:border-0;
+    }
+    .kv .k {
+        @apply text-fog;
+    }
+    .kv .v {
+        @apply text-paper text-right;
+    }
+
+    .route-row {
+        @apply flex items-center justify-between gap-3 py-3.5 border-b border-graphite last:border-0 max-md:flex-col max-md:items-start;
+    }
+
+    /* PROFILE */
+    .profile-grid {
+        @apply grid gap-2 lg:grid-cols-[1.2fr_0.8fr] grid-cols-1;
+    }
+    .profile-header {
+        @apply flex gap-4 items-center;
+    }
+    .avatar {
+        @apply w-16 h-16 rounded-xl bg-acid-lime flex items-center justify-center text-void text-2xl font-semibold shrink-0;
+    }
+    .profile-name {
+        @apply text-paper text-xl font-medium;
+    }
+    .profile-meta {
+        @apply text-fog;
+    }
+    .profile-fields {
+        @apply mt-4;
+    }
+    .profile-actions {
+        @apply flex gap-2 mt-4 flex-wrap;
+    }
+    .stack-col {
+        @apply flex flex-col gap-2;
+    }
+    .section-label {
+        @apply text-fog;
+    }
+    .section-text {
+        @apply text-sm my-3 text-mist;
+    }
+
+    .floor {
+        @apply h-[120px] rounded-xl mt-12 opacity-35 bg-gradient-to-b from-void from-10% to-[#3c4048] to-100%;
+    }
+
+    .site-footer {
+        @apply border-t border-graphite mt-24 py-6 text-ash text-[13px];
+    }
+    .footer-inner {
+        @apply max-w-[1200px] mx-auto px-6 flex justify-between gap-3 max-md:flex-col;
+    }
 }

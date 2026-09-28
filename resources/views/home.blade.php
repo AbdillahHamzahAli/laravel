@@ -10,11 +10,13 @@
     </div>
 </header>
 
-<section class="card" aria-label="Daftar rute">
-    <div class="flex items-center justify-between gap-3 mb-2">
-        <span class="mono text-fog">ROUTE REGISTRY — 04 ENTRIES</span>
-        <x-badge tone="green">named() ✓</x-badge>
-    </div>
+<x-card aria-label="Daftar rute">
+    <x-slot:header>
+        <div class="flex items-center justify-between gap-3 mb-2">
+            <span class="mono text-fog">ROUTE REGISTRY — 04 ENTRIES</span>
+            <x-badge tone="green">named() ✓</x-badge>
+        </div>
+    </x-slot:header>
 
     <div class="route-row">
         <div>
@@ -44,26 +46,30 @@
         </div>
         <div class="flex gap-2 items-center"><code class="inline">ipk.hitung</code><a class="btn-ghost" href="{{ route('ipk.hitung', ['ipk1' => '3.50', 'ipk2' => '3.75']) }}">Open →</a></div>
     </div>
-</section>
+</x-card>
 
 <div class="grid gap-2 mt-8 md:grid-cols-2 grid-cols-1">
-    <div class="card-subtle">
-        <x-badge tone="violet">TEST REGEX</x-badge>
+    <x-card variant="subtle" as="div">
+        <x-slot:header>
+            <x-badge tone="violet">TEST REGEX</x-badge>
+        </x-slot:header>
         <p class="section-text">NRP valid 10 digit lolos, selain itu jatuh ke fallback.</p>
         <div class="flex gap-2 flex-wrap">
             <a class="btn-ghost mono" href="{{ route('mahasiswa.show', ['nrp' => '5025221001']) }}">/5025221001 ✓</a>
             <a class="btn-ghost mono" href="{{ url('/mahasiswa/123') }}">/123 → 404</a>
             <a class="btn-ghost mono" href="{{ url('/mahasiswa/abc') }}">/abc → 404</a>
         </div>
-    </div>
-    <div class="card-subtle">
-        <x-badge tone="violet">TEST OPSIONAL & IPK</x-badge>
+    </x-card>
+    <x-card variant="subtle" as="div">
+        <x-slot:header>
+            <x-badge tone="violet">TEST OPSIONAL & IPK</x-badge>
+        </x-slot:header>
         <p class="section-text">Tema boleh kosong, IPK dihitung otomatis.</p>
         <div class="flex gap-2 flex-wrap">
             <a class="btn-ghost mono" href="{{ route('agent.show') }}">/agent</a>
             <a class="btn-ghost mono" href="{{ route('agent.show', ['tema' => 'vercel']) }}">/agent/vercel</a>
             <a class="btn-ghost mono" href="{{ route('ipk.hitung', ['ipk1' => '3.20', 'ipk2' => '3.90']) }}">/3.20/3.90</a>
         </div>
-    </div>
+    </x-card>
 </div>
 @endsection

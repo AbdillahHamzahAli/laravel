@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
@@ -29,6 +31,30 @@
     --shadow-soft: rgba(0, 0, 0, 0.4) 0px 2px 4px 0px;
     --shadow-lime-ring: rgba(228, 242, 34, 0.25) 0px 0px 0px 1px inset;
     --shadow-green-ring: #27a644 0px 0px 0px 1px inset;
+}
+
+/* Light theme — override token Linear gelap dengan palet terang.
+   Semua utility semantik (bg-void, text-mist, border-graphite, …)
+   otomatis mengikuti karena Tailwind v4 merendernya dari var ini. */
+html:not(.dark) {
+    color-scheme: light;
+    --color-void: #f4f5f7;
+    --color-carbon: #ffffff;
+    --color-obsidian: #eef0f3;
+    --color-graphite: #e2e5ea;
+    --color-smoke: #c9ced6;
+    --color-ash: #6b7280;
+    --color-fog: #5b6472;
+    --color-mist: #23252a;
+    --color-bone: #1c1e21;
+    --color-paper: #08090a;
+
+    --shadow-card: rgb(226, 229, 234) 0px 0px 0px 1px inset;
+    --shadow-soft: rgba(15, 23, 42, 0.08) 0px 2px 8px 0px;
+}
+
+.dark {
+    color-scheme: dark;
 }
 
 @layer base {
@@ -76,7 +102,7 @@
 
     /* BUTTONS — acid-lime hanya untuk 1 aksi utama per view */
     .btn-lime {
-        @apply inline-flex items-center bg-acid-lime text-void rounded-md px-4 py-2.5 text-sm font-medium tracking-tight hover:brightness-110 transition;
+        @apply inline-flex items-center bg-acid-lime rounded-md px-4 py-2.5 text-sm text-black font-medium tracking-tight hover:brightness-110 transition;
     }
     .btn-ghost {
         @apply inline-flex items-center gap-2 bg-transparent border border-graphite text-mist rounded-md px-3 py-2 text-[13px] hover:border-smoke hover:text-paper transition-colors;
@@ -117,6 +143,9 @@
     }
     .card-active {
         @apply border-acid-lime/40 shadow-lime-ring;
+    }
+    .card-foot {
+        @apply flex gap-2 mt-4 flex-wrap;
     }
 
     /* BADGES */
@@ -192,5 +221,67 @@
     }
     .footer-inner {
         @apply max-w-[1200px] mx-auto px-6 flex justify-between gap-3 max-md:flex-col;
+    }
+
+    /* THEME TOGGLE */
+    .theme-toggle {
+        @apply inline-flex items-center justify-center w-9 h-9 rounded-md border border-graphite text-fog hover:text-paper hover:border-smoke transition-colors shrink-0;
+    }
+    .theme-toggle svg {
+        @apply w-[18px] h-[18px];
+    }
+}
+
+/* Penyesuaian light-mode untuk utility putih-transparan yang hanya
+   terlihat di atas kanvas gelap. */
+@layer components {
+    html:not(.dark) .nav-bar {
+        background-color: rgb(255 255 255 / 0.85);
+    }
+    html:not(.dark) .nav-link:hover {
+        background-color: rgb(8 9 10 / 0.05);
+    }
+    html:not(.dark) .nav-link.active {
+        background-color: rgb(8 9 10 / 0.06);
+    }
+    html:not(.dark) .card-subtle {
+        background-color: rgb(8 9 10 / 0.015);
+        border-color: var(--color-graphite);
+    }
+    html:not(.dark) .badge {
+        background-color: rgb(8 9 10 / 0.05);
+    }
+    html:not(.dark) code.inline {
+        background-color: rgb(8 9 10 / 0.06);
+    }
+    html:not(.dark) .btn-pill {
+        background-color: #08090a;
+        color: #ffffff;
+    }
+    html:not(.dark) .btn-pill:hover {
+        background-color: #23252a;
+    }
+    html:not(.dark) .badge-green {
+        color: #177245;
+    }
+    html:not(.dark) .badge-red {
+        color: #b42318;
+    }
+    html:not(.dark) .badge-violet {
+        color: #4f46e5;
+    }
+    html:not(.dark) .badge-lime {
+        color: #4d5c00;
+        background-color: rgb(228 242 34 / 0.3);
+    }
+    html:not(.dark) .floor {
+        background: linear-gradient(to bottom, #f4f5f7 10%, #c9ced6 100%);
+        opacity: 0.6;
+    }
+    html:not(.dark) .avatar {
+        color: #08090a;
+    }
+    html:not(.dark) .logo-mark {
+        color: #08090a;
     }
 }

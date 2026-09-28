@@ -13,13 +13,12 @@
     </div>
 </header>
 
-<section class="card-subtle" aria-label="Saran rute">
-    <span class="mono text-fog">MUNGKIN MAKSUD KAMU</span>
+<x-card variant="subtle" label="MUNGKIN MAKSUD KAMU" aria-label="Saran rute">
     <div class="flex gap-2 mt-3 flex-wrap">
         <a class="btn-ghost mono" href="{{ route('home') }}">GET /</a>
         <a class="btn-ghost mono" href="{{ route('mahasiswa.show', ['nrp' => '5025221001']) }}">/mahasiswa/5025221001</a>
         <a class="btn-ghost mono" href="{{ route('agent.show') }}">/agent</a>
         <a class="btn-ghost mono" href="{{ route('ipk.hitung', ['ipk1' => '3.50', 'ipk2' => '3.75']) }}">/hitung-ipk/3.50/3.75</a>
     </div>
-</section>
+</x-card>
 @endsection
